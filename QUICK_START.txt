@@ -1,22 +1,11 @@
 ═══════════════════════════════════════════════════════════════
-   🎉 INFRANEST v2.0.1 - PRODUCTION READY! 🎉
+   INFRANEST (PRISM) - QUICK START
 ═══════════════════════════════════════════════════════════════
 
-✅ 100% Test Success Rate (10/10 tests passing)
-✅ All bugs fixed and verified
-✅ Backend & Frontend working perfectly
-✅ Code generation producing REAL code (no placeholders)
-✅ Deploy-ready with complete documentation
-
-═══════════════════════════════════════════════════════════════
-   🚀 QUICK START - GET RUNNING IN 30 SECONDS
-═══════════════════════════════════════════════════════════════
-
-OPTION 1 - EASIEST (Recommended):
+OPTION 1 - EASIEST (Windows):
    1. Double-click: START_ALL.bat
-   2. Wait 10-15 seconds
+   2. Wait ~10-15 seconds for both servers to come up
    3. Browser opens automatically to http://localhost:5173
-   4. Done! 🎉
 
 OPTION 2 - BACKEND ONLY:
    Double-click: START_BACKEND.bat
@@ -28,116 +17,49 @@ OPTION 3 - MANUAL:
    Browser: http://localhost:5173
 
 ═══════════════════════════════════════════════════════════════
-   ✅ WHAT'S WORKING (v2.0.1)
+   VERIFYING IT'S RUNNING
 ═══════════════════════════════════════════════════════════════
 
-BACKEND:
-✅ Flask server on port 8000
-✅ Groq AI integration (llama-3.1-8b-instant)
-✅ DSL generation from natural language
-✅ Code generation (Django, Go, Rails)
-✅ All 3 frameworks generating REAL code
-✅ ZIP download working
-✅ API validation working
-
-FRONTEND:
-✅ React + TypeScript + Vite
-✅ Code editor showing REAL generated code
-✅ No more placeholder comments!
-✅ Download functionality working
-✅ Visual DSL builder
-✅ Interactive code preview
-
-TESTING:
-✅ 10/10 comprehensive tests passing
-✅ Django: 23 complete files
-✅ Go Fiber: 10-20 complete files
-✅ Rails: 11-25 complete files
-✅ Zero bugs found!
-
-═══════════════════════════════════════════════════════════════
-   🎯 FEATURES YOU CAN USE NOW
-═══════════════════════════════════════════════════════════════
-
-1. 💬 Natural Language → Backend Code
-   "Build a blog API with posts and comments"
-   → Complete Django/Go/Rails project in 15 seconds
-
-2. ❓ Smart Follow-up Questions
-   AI asks intelligent questions to refine your requirements
-
-3. 📝 DSL Generation
-   Natural language → Structured specification
-
-4. 💻 Code Generation
-   Generate production-ready code in 3 frameworks:
-   • Django + DRF (Python)
-   • Go Fiber + GORM (Go)
-   • Ruby on Rails (Ruby)
-
-5. 📦 Download Projects
-   Get complete ZIP with 20-30 files ready to deploy
-
-6. ✅ Validation
-   Built-in DSL validation before code generation
-
-═══════════════════════════════════════════════════════════════
-   📚 DOCUMENTATION FILES
-═══════════════════════════════════════════════════════════════
-
-START HERE:
-• QUICK_START_GUIDE.md - 5-minute setup guide
-• README.md - Complete system documentation
-
-DETAILED INFO:
-• DEPLOYMENT_GUIDE.md - Deploy to production
-• COMPLETION_REPORT.md - Testing & bug fixes
-• FRONTEND_FIX_APPLIED.md - Frontend fix details
-• DOCUMENTATION_INDEX.md - All docs organized
-
-REFERENCE:
-• test_end_to_end.py - Run full test suite
-• test_results.json - Latest test results
-
-═══════════════════════════════════════════════════════════════
-   🧪 VERIFY EVERYTHING WORKS
-═══════════════════════════════════════════════════════════════
-
-1. Test Backend:
-   cd infranest
-   python test_end_to_end.py
-   Expected: ✅ 100% success rate
-
-2. Test Health:
+1. Health check:
    curl http://localhost:8000/health
-   Expected: {"status": "healthy"}
+   Expected: {"status": "healthy", ...}
 
-3. Test Code Generation (PowerShell):
-   See QUICK_START_GUIDE.md for examples
+2. Manual integration checks (require the backend running locally -
+   these are debug scripts with print output, not an automated/CI
+   test suite; see README.md "Testing" for details):
+   python test_frontend_integration.py
+   python infranest\core\test_api_debug.py
 
-═══════════════════════════════════════════════════════════════
-   📊 SYSTEM STATUS
-═══════════════════════════════════════════════════════════════
-
-Version: 2.0.1
-Last Updated: November 3, 2024
-Test Success Rate: 100% (10/10)
-Known Bugs: 0
-Production Ready: YES ✅
-
-Backend: ✅ Operational
-Frontend: ✅ Operational  
-Code Gen: ✅ Working (no placeholders!)
-Download: ✅ Working
-Documentation: ✅ Complete
+3. Try the UI: open http://localhost:5173, describe a backend project,
+   answer the core questions, and generate code for a framework.
 
 ═══════════════════════════════════════════════════════════════
-   🎉 YOU'RE READY TO GO!
+   WHAT THIS DOES
 ═══════════════════════════════════════════════════════════════
 
-Double-click START_ALL.bat to begin!
+1. Natural language -> DSL: describe a backend project in plain
+   English; the backend calls Groq (Mixtral) if GROQ_API_KEY is set,
+   otherwise falls back to a template-based DSL.
+2. Follow-up questions: AI-generated questions to refine the spec
+   (falls back to rule-based questions without an API key).
+3. DSL editor: review/edit the generated YAML spec before generating
+   code.
+4. Code generation: Django + DRF, Go Fiber + GORM, or Ruby on Rails
+   from the same DSL.
+5. Download: a ZIP of the generated project.
 
-Need help? Check README.md or QUICK_START_GUIDE.md
+See README.md for the full feature list, architecture, and the
+"Project Status" notes on what's simulated (deploy_project, view_logs,
+run_audit, simulate_api in the copilot CLI - see copilot/README.md).
 
 ═══════════════════════════════════════════════════════════════
+   DOCUMENTATION
+═══════════════════════════════════════════════════════════════
 
+• README.md - full system documentation
+• infranest/docs/PRISM_RESEARCH_FLOW.md - the 9-step pipeline
+• infranest/docs/LLM_BENCHMARKING.md - LLM comparison methodology
+• infranest/copilot/README.md - Copilot CLI reference
+• .github/copilot-instructions.md - AI Copilot operating manual
+
+═══════════════════════════════════════════════════════════════

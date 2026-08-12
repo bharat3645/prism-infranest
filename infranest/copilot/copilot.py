@@ -882,7 +882,8 @@ Return only valid YAML without explanations."""
             dsl = yaml.safe_load(f)
         
         console.print(f"[blue]Deploying to {provider}...[/blue]")
-        
+        console.print("[yellow]⚠ Simulated: no cloud provider is contacted and nothing is actually deployed.[/yellow]")
+
         # Mock deployment process
         with Progress(
             SpinnerColumn(),
@@ -911,7 +912,8 @@ Return only valid YAML without explanations."""
     def view_logs(self, project_name: str, lines: int = 100) -> list:
         """View deployment logs"""
         console.print(f"[blue]Fetching logs for {project_name} (last {lines} lines)...[/blue]")
-        
+        console.print("[yellow]⚠ Simulated: this is a fixed sample log, not real output from a deployment.[/yellow]")
+
         # Mock logs
         logs = [
             "2023-12-01 10:30:00 - INFO - Starting Django application",
@@ -930,7 +932,8 @@ Return only valid YAML without explanations."""
             dsl = yaml.safe_load(f)
         
         console.print("[blue]Running security and performance audit...[/blue]")
-        
+        console.print("[yellow]⚠ Simulated: these are fixed scores, not a real analysis of your DSL.[/yellow]")
+
         # Mock audit results
         audit_results = {
             "security": {
@@ -964,7 +967,8 @@ Return only valid YAML without explanations."""
             dsl = yaml.safe_load(f)
         
         console.print(f"[blue]Simulating {method} {endpoint}...[/blue]")
-        
+        console.print("[yellow]⚠ Simulated: this is a canned response shape, not output from your generated code.[/yellow]")
+
         # Mock API response
         response = {
             "status": 200,

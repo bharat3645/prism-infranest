@@ -109,7 +109,7 @@ const Sidebar: React.FC = () => {
                 <h1 className="text-xl font-bold bg-gradient-to-r from-[#00ff88] to-[#00ccff] bg-clip-text text-transparent">
                   InfraNest
                 </h1>
-                <p className="text-xs text-gray-400 font-mono">v2.0.0-beta</p>
+                <p className="text-xs text-gray-400 font-mono">v0.1.0</p>
               </div>
             </div>
           )}

@@ -19,12 +19,23 @@
 </p>
 
 <p align="center">
-  <img alt="Version" src="https://img.shields.io/badge/version-2.1.0-blue?style=flat-square">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue?style=flat-square">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-green?style=flat-square">
   <img alt="Python" src="https://img.shields.io/badge/python-3.11+-blue?style=flat-square">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.0+-blue?style=flat-square">
-  <img alt="Quality" src="https://img.shields.io/badge/code%20quality-9.2%2F10-brightgreen?style=flat-square">
+  <img alt="Quality" src="https://img.shields.io/badge/avg%20quality%20score-8.5%2F10-brightgreen?style=flat-square">
 </p>
+
+> **A note on the numbers in this README:** the tables below are computed
+> from the real data checked into [`infranest/evaluation_data/`](./infranest/evaluation_data)
+> - **121** generation records ([`generation_metrics.json`](./infranest/evaluation_data/generation_metrics.json))
+> and **40** prompt-quality assessments ([`prompt_quality_metrics.json`](./infranest/evaluation_data/prompt_quality_metrics.json))
+> gathered during development, across **4** LLMs (Mixtral, LLaMA-2-70b,
+> Mistral-7B, Gemini 1.5 Pro). Earlier drafts of this README described this
+> as "2,664+ generations" across "5 LLMs" (including Code LLaMA, which was
+> never actually run) - those figures did not match the data files and have
+> been corrected here. Read this as a small internal pilot dataset, not a
+> published large-N benchmark.
 
 ---
 
@@ -59,25 +70,27 @@
 
 ### What Makes InfraNest Different?
 
-✅ **Research-Driven**: Built on comprehensive LLM benchmarking (2,664+ generations analyzed)  
-✅ **Multi-Model Intelligence**: Leverages Mixtral-8x7b-32768, selected after rigorous testing against 5+ LLMs  
+✅ **Research-Driven**: Built on internal LLM benchmarking (121 generations analyzed - see the note above)  
+✅ **Multi-Model Intelligence**: Leverages Mixtral-8x7b-32768, the best performer in that comparison against 3 other LLMs  
 ✅ **Context-Aware**: Dynamic follow-up question generation for complete requirement understanding  
 ✅ **Production-Ready**: Generates deployable code with tests, Docker configurations, and documentation  
 ✅ **Framework Agnostic**: Supports Django, Go (Fiber), and Ruby on Rails with consistent quality  
 
 ### Key Statistics
 
+*Computed from the 121 records in [`generation_metrics.json`](./infranest/evaluation_data/generation_metrics.json).*
+
 | Metric | Value |
 |--------|-------|
-| **Code Quality Score** | 9.2/10 (avg across 2,664 generations) |
-| **Build Success Rate** | 95% |
-| **Average Generation Time** | 8-15 seconds |
+| **Code Quality Score** | 8.5/10 (avg across all 121 generations) |
+| **Build Success Rate** | 83% |
+| **Average Generation Time** | 7-12 seconds |
 | **Frameworks Supported** | 3 (Django, Go Fiber, Ruby on Rails) |
 | **Files per Project** | 10-25 (framework-dependent) |
-| **Test Coverage** | 85-95% |
-| **LLMs Benchmarked** | 5 (Mixtral, LLaMA-2, Mistral, Gemini, Code LLaMA) |
-| **Research Iterations** | 2,664+ code generations analyzed |
-| **Cost per Generation** | $0.02-0.05 (optimized) |
+| **Test Coverage (self-reported in the metrics)** | 85% avg |
+| **LLMs Benchmarked** | 4 (Mixtral, LLaMA-2-70b, Mistral-7B, Gemini 1.5 Pro) |
+| **Generations Analyzed** | 121 (see [`evaluation_data/`](./infranest/evaluation_data)) |
+| **Cost per Generation (this dataset)** | ~$0.003 avg, varies by model |
 
 ---
 
@@ -129,9 +142,10 @@
 ### 🤖 Advanced AI Capabilities
 
 **Multi-LLM Architecture**
-- Primary: **Mixtral-8x7b-32768** (Groq API) - Best code quality (9.2/10)
+- Primary: **Mixtral-8x7b-32768** (Groq API) - highest code quality in our
+  comparison (9.11/10 avg, n=31 - see [LLM Comparison](#-benchmarking-results))
 - Secondary: **Google Gemini 1.5 Pro** - Fallback & large context (1M tokens)
-- Tested Against: LLaMA-2-70b, Mistral-7B, Code LLaMA
+- Compared Against: LLaMA-2-70b, Mistral-7B
 
 **Adaptive Hyperparameters**
 ```python
@@ -157,26 +171,31 @@ top_p: 0.95          # High - creative sampling
   <img src="./infranest/public/assets/Code-Gen.png" alt="Code Generation Output" width="80%"/>
 </p>
 
+*Per-framework figures below are averages over that framework's records in
+`generation_metrics.json` (Django n=41, Go n=40, Rails n=40) - quality score
+does not vary much by framework in this dataset (8.46-8.48/10 across all
+three); the differences below are the file/LOC/timing counts, which do.*
+
 #### Django (Python + Django REST Framework)
-- **Files**: 23 average
-- **Lines of Code**: 1,847 average
+- **Files**: 22 average
+- **Lines of Code**: 1,851 average
 - **Features**: Models, Views, Serializers, Admin, URLs, Tests
 - **Extras**: Docker, pytest, requirements.txt, README
-- **Quality Score**: 9.4/10
+- **Quality Score**: 8.46/10 · **Build success**: 90%
 
 #### Go (Go Fiber + GORM)
 - **Files**: 15 average
-- **Lines of Code**: 982 average
+- **Lines of Code**: 990 average
 - **Features**: Models, Handlers, Routes, Middleware, Database
 - **Extras**: Docker, go.mod, tests, README
-- **Quality Score**: 9.0/10
+- **Quality Score**: 8.48/10 · **Build success**: 78%
 
 #### Ruby on Rails (Rails 7 API)
-- **Files**: 17 average
-- **Lines of Code**: 1,234 average
+- **Files**: 19 average
+- **Lines of Code**: 1,301 average
 - **Features**: Models, Controllers, Routes, Validations, Migrations
 - **Extras**: Docker, Gemfile, RSpec tests, README
-- **Quality Score**: 9.1/10
+- **Quality Score**: 8.47/10 · **Build success**: 80%
 
 ---
 
@@ -191,8 +210,8 @@ top_p: 0.95          # High - creative sampling
 ### 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/bharat3645/PRISM-Insfranest.git
-cd PRISM-Insfranest
+git clone https://github.com/bharat3645/prism-infranest.git
+cd prism-infranest
 ```
 
 ### 2️⃣ Option A: One-Command Start ⚡ (Recommended)
@@ -365,7 +384,7 @@ InfraNest is built on the **PRISM Research Framework**, a systematic approach to
   max_tokens: 800       # Brief questions
   top_p: 0.95           # Diverse sampling
   ```
-- **Quality**: 9.1/10 relevance, 9.3/10 clarity (benchmarked)
+- **Quality (Mixtral, n=10 prompts in `prompt_quality_metrics.json`)**: 9.14/10 clarity, 8.87/10 specificity
 - **Adaptation**: Questions tailored to project area and features
 
 #### Step 4: DSL Parsing Layer
@@ -377,7 +396,7 @@ InfraNest is built on the **PRISM Research Framework**, a systematic approach to
 #### Step 5: Code Generation (Multi-Framework)
 - **Generators**: Django, Go Fiber, Ruby on Rails
 - **Templates**: Jinja2-based with framework-specific logic
-- **Quality**: 9.0-9.4/10 average (framework-dependent)
+- **Quality**: 8.46-8.48/10 average (consistent across frameworks in this dataset)
 - **Hyperparameters**:
   ```python
   temperature: 0.15     # Low - prioritize correctness
@@ -386,9 +405,9 @@ InfraNest is built on the **PRISM Research Framework**, a systematic approach to
   ```
 
 #### Step 6: LLM Selection & Hyperparameter Tuning
-- **Primary Model**: Mixtral-8x7b-32768 (95% success rate)
+- **Primary Model**: Mixtral-8x7b-32768 (94% build success rate in this dataset, n=31)
 - **Context-Aware Scaling**: Auto-adjust based on project size
-- **Cost Optimization**: $0.02-0.05 per generation
+- **Cost**: ~$0.003 per generation on average in this dataset (varies by model; see the LLM Comparison table below)
 
 #### Step 7: Packaging & Output
 - **Format**: ZIP archive with complete project
@@ -398,39 +417,41 @@ InfraNest is built on the **PRISM Research Framework**, a systematic approach to
 #### Step 8: Testing & Feedback Loop
 - **Automated Tests**: Generated with every project
 - **Quality Assurance**: Build validation, test execution
-- **Feedback**: User satisfaction tracking (4.6/5 average)
+- **Feedback**: User satisfaction tracking (3.9/5 average, n=82 records with a rating in `generation_metrics.json`)
 
 #### Step 9: Evaluation & Benchmarking
 - **Metrics Tracked**: Quality score, success rate, generation time, token usage
 - **Visualizations**: Matrices, charts, comparative analyses
-- **Dataset**: 2,664+ generations analyzed
+- **Dataset**: 121 generations analyzed (see the note near the top of this README)
 
 ---
 
 ## 📊 Benchmarking Results
 
-### LLM Comparison (2,664 Generations Analyzed)
+### LLM Comparison (121 Generations Analyzed)
 
 <p align="center">
   <img src="./infranest/public/assets/fig5_3_llm_comparison_chart.png" alt="LLM Comparison" width="80%"/>
 </p>
 
-| Model | Quality Score | Success Rate | Avg Time (s) | Cost ($) | Cost-Effectiveness |
-|-------|--------------|--------------|--------------|----------|-------------------|
-| **Mixtral-8x7b** ✅ | **9.2** | **95%** | **8.5** | **$0.023** | **400** |
-| LLaMA-2-70b | 8.1 | 78% | 15.2 | $0.035 | 231 |
-| Mistral-7B | 7.8 | 72% | 6.1 | $0.018 | 433 |
-| Gemini 1.5 Pro | 8.9 | 88% | 12.3 | $0.052 | 171 |
-| Code LLaMA | 8.3 | 81% | 10.8 | $0.028 | 296 |
+| Model | n | Quality Score | Success Rate | Avg Time (s) | Cost ($) | Cost-Effectiveness |
+|-------|---|--------------|--------------|--------------|----------|-------------------|
+| **Mixtral-8x7b** | 31 | **9.11** | **94%** | 9.3 | $0.0026 | 3458 |
+| LLaMA-2-70b | 30 | 8.14 | 70% | 12.0 | $0.0030 | 2723 |
+| Mistral-7B | 30 | 7.82 | 80% | **6.4** | **$0.0016** | **5036** |
+| Gemini 1.5 Pro | 30 | 8.78 | 87% | 12.1 | $0.0043 | 2057 |
+
+*Code LLaMA is not in this table - despite being named in earlier drafts of
+this README, it was never actually run against this dataset.*
 
 **Cost-Effectiveness** = Quality Score / Cost (higher is better)
 
-**Winner: Mixtral-8x7b-32768**
-- ✅ Highest quality (9.2/10)
-- ✅ Best success rate (95%)
-- ✅ Excellent cost-effectiveness (400)
-- ✅ Large context window (32K tokens)
-- ✅ Fast inference via Groq's LPU hardware
+Trade-off, not a single "winner": Mixtral has the highest quality score and
+success rate; Mistral-7B is the cheapest, fastest, and most cost-effective by
+that formula despite lower quality. Which one is "best" depends on what
+you're optimizing for. `copilot/copilot.py` and `core/app.py` default to
+Mixtral for its quality/success-rate combination, not because it dominates
+on every axis.
 
 ### Framework-Specific Performance
 
@@ -438,29 +459,35 @@ InfraNest is built on the **PRISM Research Framework**, a systematic approach to
   <img src="./infranest/public/assets/fig5_5_system_performance.png" alt="System Performance" width="80%"/>
 </p>
 
-#### Django Generation
+*Each row below is n=10-11 records from `generation_metrics.json` - small
+enough that single-digit percentage differences are noise, not signal.*
 
-| Model | Quality | Success | Files | LOC | Time (s) |
-|-------|---------|---------|-------|-----|----------|
-| **Mixtral** | **9.4** | **100%** | **23** | **1,847** | **10.5** |
-| LLaMA-2 | 8.3 | 75% | 20 | 1,623 | 18.2 |
-| Gemini | 9.0 | 88% | 22 | 1,792 | 14.1 |
+#### Django Generation (n=41)
 
-#### Go Fiber Generation
+| Model | n | Quality | Success | Files | LOC | Time (s) |
+|-------|---|---------|---------|-------|-----|----------|
+| **Mixtral** | 11 | **9.18** | **100%** | 22 | 1,807 | 9.9 |
+| Gemini | 10 | 8.73 | 100% | 23 | 1,866 | 13.4 |
+| LLaMA-2 | 10 | 8.02 | 80% | 23 | 1,837 | 12.4 |
+| Mistral-7B | 10 | 7.82 | 80% | 22 | 1,901 | **6.9** |
 
-| Model | Quality | Success | Files | LOC | Time (s) |
-|-------|---------|---------|-------|-----|----------|
-| **Mixtral** | **9.0** | **92%** | **15** | **982** | **6.8** |
-| LLaMA-2 | 8.0 | 75% | 13 | 856 | 12.1 |
-| Code LLaMA | 8.5 | 83% | 14 | 921 | 9.3 |
+#### Go Fiber Generation (n=40)
 
-#### Rails Generation
+| Model | n | Quality | Success | Files | LOC | Time (s) |
+|-------|---|---------|---------|-------|-----|----------|
+| **Mixtral** | 10 | **9.07** | 90% | 15 | 978 | 6.7 |
+| Gemini | 10 | 8.84 | 90% | 14 | 981 | 8.9 |
+| LLaMA-2 | 10 | 8.19 | 60% | 16 | 998 | 9.4 |
+| Mistral-7B | 10 | 7.80 | 70% | 14 | 1,002 | **4.9** |
 
-| Model | Quality | Success | Files | LOC | Time (s) |
-|-------|---------|---------|-------|-----|----------|
-| **Mixtral** | **9.1** | **92%** | **17** | **1,234** | **12.3** |
-| LLaMA-2 | 7.9 | 83% | 15 | 1,087 | 16.8 |
-| Gemini | 8.8 | 92% | 16 | 1,198 | 13.5 |
+#### Rails Generation (n=40)
+
+| Model | n | Quality | Success | Files | LOC | Time (s) |
+|-------|---|---------|---------|-------|-----|----------|
+| **Mixtral** | 10 | **9.08** | 90% | 19 | 1,281 | 11.1 |
+| Mistral-7B | 10 | 7.86 | **90%** | 18 | 1,310 | **7.5** |
+| Gemini | 10 | 8.76 | 70% | 17 | 1,331 | 14.1 |
+| LLaMA-2 | 10 | 8.21 | 70% | 20 | 1,283 | 14.2 |
 
 ### Hyperparameter Tuning Results
 
@@ -468,40 +495,47 @@ InfraNest is built on the **PRISM Research Framework**, a systematic approach to
   <img src="./infranest/public/assets/fig5_4_hyperparameter_tuning.png" alt="Hyperparameter Tuning" width="80%"/>
 </p>
 
-#### Temperature Testing (for Code Generation)
+**Honesty note:** earlier drafts of this section presented 4-point sweeps
+over temperature (0.05-0.5) and max_tokens (4000-12000) as if they were a
+controlled experiment. `generation_metrics.json` doesn't contain that
+experiment - it only has **two** temperature values (0.1, 0.15) and
+**three** max_tokens values (6000, 7000, 8000), and each value lines up
+one-to-one with a framework (Go always used 6000, Rails always used 7000,
+Django always used 8000). That means temperature/max_tokens are confounded
+with framework in this dataset - the numbers below can't isolate the effect
+of the hyperparameter from the effect of "which framework was this."
 
-| Temperature | Quality | Success | Creativity | Consistency |
-|-------------|---------|---------|------------|-------------|
-| 0.05 | 8.9 | 97% | Low | Very High |
-| **0.15** ✅ | **9.2** | **95%** | **Moderate** | **High** |
-| 0.3 | 8.7 | 89% | High | Moderate |
-| 0.5 | 8.1 | 76% | Very High | Low |
+| Temperature | n | Quality | Success |
+|-------------|---|---------|---------|
+| 0.1 | 40 | 8.48 | 78% |
+| 0.15 | 81 | 8.47 | 85% |
 
-**Selected: 0.15** - Optimal balance of quality and consistency
+| Max Tokens | Framework | n | Quality | Success | Time (s) | Avg Cost |
+|------------|-----------|---|---------|---------|----------|----------|
+| 6000 | Go Fiber | 40 | 8.48 | 78% | 7.4 | $0.0021 |
+| 7000 | Rails | 40 | 8.47 | 80% | 11.7 | $0.0027 |
+| 8000 | Django | 41 | 8.46 | 90% | 10.7 | $0.0038 |
 
-#### Max Tokens Testing
-
-| Max Tokens | Completion | Quality | Time (s) | Cost |
-|------------|-----------|---------|----------|------|
-| 4000 | 82% | 8.3 | 6.1 | $0.015 |
-| 6000 | 94% | 9.0 | 7.8 | $0.019 |
-| **8000** ✅ | **98%** | **9.2** | **8.5** | **$0.023** |
-| 12000 | 99% | 9.3 | 11.2 | $0.034 |
-
-**Selected: 8000** - Best completion rate without excessive cost
+The production defaults (`temperature: 0.15`, `max_tokens: 8000` for code
+generation - see `infranest/core/ai_providers/groq_provider.py`) are
+reasonable choices, just not ones this dataset empirically proves optimal
+via a real sweep.
 
 ### Prompt Quality Metrics
 
-Analysis of 362 prompts across different complexity levels:
+Analysis of the 40 prompts in [`prompt_quality_metrics.json`](./infranest/evaluation_data/prompt_quality_metrics.json)
+(10 per model):
 
 | Metric | Mixtral | LLaMA-2 | Mistral | Gemini |
 |--------|---------|---------|---------|--------|
-| **Context Completeness** | 0.91 | 0.78 | 0.76 | 0.91 |
-| **Clarity Score** | 9.0 | 8.2 | 8.2 | 8.9 |
-| **Specificity Score** | 8.9 | 7.8 | 7.5 | 9.3 |
-| **Questions Needed** | 3-4 | 4-6 | 7-8 | 3-4 |
+| **Context Completeness** | 0.91 | 0.78 | 0.73 | 0.88 |
+| **Clarity Score** | 9.14 | 8.20 | 7.92 | 8.81 |
+| **Specificity Score** | 8.87 | 7.79 | 7.45 | 9.18 |
+| **Questions Needed (avg)** | 3.3 | 5.6 | 6.7 | 4.0 |
 
-**Key Insight**: Mixtral requires fewer follow-up questions while maintaining high context completeness.
+**Observation** (n=10 per model, small sample): in this dataset Mixtral
+needed the fewest follow-up questions on average while keeping high context
+completeness; Gemini scored highest on specificity.
 
 ---
 
@@ -825,48 +859,50 @@ GET /api/v1/health
 
 ## 📈 Performance Metrics
 
-### Real-World Benchmarks (Based on 2,664 Generations)
+### Real-World Benchmarks (Based on 121 Generations)
 
 #### Generation Time by Framework
 
 ```
-Django:  ████████████████████ 10.5s avg (range: 8-12s)
-Go:      ████████████ 6.8s avg (range: 5-8s)
-Rails:   ████████████████████████ 12.3s avg (range: 10-15s)
+Django:  ████████████████████ 10.7s avg (range: 5.9-15.5s, n=41)
+Go:      ██████████████ 7.4s avg (range: 4.2-10.7s, n=40)
+Rails:   ███████████████████████ 11.7s avg (range: 6.2-16.9s, n=40)
 ```
 
 #### Code Quality Distribution
 
 ```
-10.0: ████████ 8%
-9.5:  ████████████████████ 20%
-9.0:  ████████████████████████████████ 32%
-8.5:  ████████████████████ 20%
-8.0:  ████████████ 12%
-<8.0: ████████ 8%
+9.5:  ███████ 7%
+9.0:  ███████████████████████████████ 31%
+8.5:  █████████████████████ 21%
+8.0:  ███████████████████████████████ 31%
+<8.0: ███████████ 11%
 
-Average: 9.2/10
+Average: 8.47/10  (n=121; no record scored a full 10.0)
 ```
 
 #### Success Rate by Framework
 
 ```
-Django: ████████████████████████████████████████████████ 100%
-Go:     ██████████████████████████████████████████████ 92%
-Rails:  ██████████████████████████████████████████████ 92%
+Django: ██████████████████████████████████████████ 90% (n=41)
+Rails:  ████████████████████████████████████ 80% (n=40)
+Go:     █████████████████████████████████████ 78% (n=40)
 
-Overall: ███████████████████████████████████████████████ 95%
+Overall: ████████████████████████████████████████ 83% (n=121)
 ```
 
 #### Token Usage & Cost
 
 | Framework | Avg Tokens | Cost/Gen | LOC/$ |
 |-----------|------------|----------|-------|
-| Django | 15,234 | $0.023 | 80,304 |
-| Go | 10,301 | $0.015 | 65,467 |
-| Rails | 13,456 | $0.020 | 61,700 |
+| Django | 16,094 | $0.0038 | 488,161 |
+| Go | 10,062 | $0.0021 | 469,668 |
+| Rails | 12,995 | $0.0027 | 490,179 |
 
-**Cost Optimization**: Through hyperparameter tuning and template optimization, we reduced average cost per generation by 40% compared to naive implementations.
+*The cost figures above reflect this dataset's `cost_usd` field, which is
+roughly an order of magnitude lower than the earlier "$0.02-0.05 per
+generation" claim in this README - that claim wasn't computed from this
+data and has been removed rather than repeated.*
 
 ---
 
@@ -874,22 +910,26 @@ Overall: ███████████████████████�
 
 ### Why Mixtral-8x7b-32768?
 
-After benchmarking 5 LLMs across 2,664 generations, Mixtral emerged as the clear winner:
+After comparing 4 LLMs across the 121 generations in `generation_metrics.json`
+(see [LLM Comparison](#-benchmarking-results) above), Mixtral is the default
+for quality and reliability - though not for cost, where Mistral-7B wins:
 
 | Selection Criteria | Mixtral | Competitors |
 |-------------------|---------|-------------|
-| **Code Quality** | 9.2/10 | 7.8-8.9/10 |
-| **Success Rate** | 95% | 72-88% |
-| **Cost-Effectiveness** | 400 | 171-433 |
-| **Context Window** | 32,768 | 4,096-1M |
-| **Inference Speed** | 8.5s | 6.1-15.2s |
+| **Code Quality** | 9.11/10 | 7.82-8.78/10 |
+| **Success Rate** | 94% | 70-87% |
+| **Cost-Effectiveness** | 3458 | 2057-5036 (Mistral-7B is highest, at 5036) |
+| **Context Window** | 32,768 tokens | 4,096-1M (model spec, not measured here) |
+| **Inference Speed** | 9.3s avg | 6.4-12.1s (Mistral-7B is fastest) |
 
-**Key Advantages:**
-1. **Best Quality**: Highest code quality score (9.2/10)
-2. **High Reliability**: 95% build success rate
+**Key Advantages (in this dataset):**
+1. **Best Quality**: Highest code quality score (9.11/10)
+2. **High Reliability**: Highest build success rate (94%)
 3. **Large Context**: 32K token window handles complex projects
 4. **Fast Inference**: Groq's custom LPU hardware
-5. **Cost-Effective**: Best quality/cost ratio
+5. **Not the cheapest**: Mistral-7B is ~40% cheaper and faster per
+   generation, at a real quality cost (7.82 vs 9.11) - see the trade-off
+   note in the LLM Comparison table above.
 
 ### Adaptive Hyperparameter System
 
@@ -901,7 +941,7 @@ After benchmarking 5 LLMs across 2,664 generations, Mixtral emerged as the clear
 | **DSL Generation** | 0.20 | 6000 | 0.85 | Structured output needs precision |
 | **Follow-up Questions** | 0.80 | 800 | 0.95 | High creativity for diverse questions |
 | **Analysis** | 0.60 | 3000 | 0.90 | Balance precision and insight |
-| **Documentation** | 0.30 | 4000 | 0.85 | Clear writing, comprehensive coverage |
+| **Enhancement** (improving an existing DSL) | 0.25 | 7000 | 0.88 | Focused additions without redundancy |
 
 #### Context-Aware Scaling
 
@@ -965,9 +1005,9 @@ class GenerationMetrics:
 
 ### Stored Metrics
 
-- **`generation_metrics.json`**: 2,664 generation records
-- **`llm_comparisons.json`**: Comparative analysis across 5 LLMs
-- **`prompt_quality_metrics.json`**: 362 prompt quality assessments
+- **`generation_metrics.json`**: 121 generation records
+- **`llm_comparisons.json`**: 5 head-to-head comparison tasks across 4 LLMs (Mixtral, LLaMA-2-70b, Mistral-7B, Gemini 1.5 Pro)
+- **`prompt_quality_metrics.json`**: 40 prompt quality assessments (10 per model)
 
 ### Visualization Examples
 
@@ -1034,28 +1074,33 @@ VITE_ENABLE_EXPERIMENTAL_FEATURES=false
 
 ## 🧪 Testing
 
-### Run Full Test Suite
+**There is no automated/CI test suite in this repo yet.** There's no
+`infranest/core/tests/` directory and no pytest config. CI
+([`infranest/.github/workflows/code-quality.yml`](./infranest/.github/workflows/code-quality.yml))
+runs lint/type-check/Bandit/Trivy/SonarQube and a pytest step that's
+skipped when no `tests/` dir is found - and every step in that workflow is
+`continue-on-error: true`, so none of it can currently fail the build
+either way.
+An earlier version of this README instructed running `python
+test_end_to_end.py` with a "10/10 tests passing" sample output; that file
+does not exist anywhere in this repo and never has (`git log --all` has no
+record of it). The scripts that do exist are manual, print-based
+integration checks that require the backend running locally - not an
+automated suite, and not something CI runs:
 
 ```bash
-cd infranest
-python test_end_to_end.py
+# from the repo root, with `python infranest/core/server.py` running:
+python test_frontend_integration.py
+
+# from the repo root, with the backend running:
+python infranest/core/test_api_debug.py
 ```
 
-**Expected Output:**
-```
-✅ Test 1: Health Check - PASSED
-✅ Test 2: DSL Generation (Django) - PASSED
-✅ Test 3: DSL Generation (Go) - PASSED
-✅ Test 4: Code Generation (Django) - PASSED
-✅ Test 5: Code Generation (Go) - PASSED
-✅ Test 6: Code Generation (Rails) - PASSED
-✅ Test 7: Follow-up Questions - PASSED
-✅ Test 8: Build Validation (Django) - PASSED
-✅ Test 9: Build Validation (Go) - PASSED
-✅ Test 10: Build Validation (Rails) - PASSED
-
-SUCCESS RATE: 100% (10/10)
-```
+Both print `PASSED`/`FAILED` per-check to stdout and exit however the
+script happens to exit - there's no `pytest`, no coverage number, and no
+CI job wired up to either of them today. If you want a real automated
+suite, `Backend-Builder`'s [`core/tests/`](https://github.com/bharat3645/Backend-Builder/tree/master/core/tests)
+(74 pytest tests, run in CI) is the pattern to follow here.
 
 ### Manual Testing Workflow
 
@@ -1100,12 +1145,11 @@ SUCCESS RATE: 100% (10/10)
 | Document | Description |
 |----------|-------------|
 | **README.md** | This file - complete system overview |
-| **QUICK_START.txt** | 30-second setup guide |
+| **QUICK_START.txt** | Quick setup guide |
 | **infranest/docs/PRISM_RESEARCH_FLOW.md** | 9-step research pipeline details |
-| **infranest/docs/LLM_BENCHMARKING.md** | Complete LLM comparison and selection rationale |
+| **infranest/docs/LLM_BENCHMARKING.md** | LLM comparison and selection rationale |
 | **.github/copilot-instructions.md** | AI Copilot operating manual |
-| **infranest/copilot/README.md** | Copilot integration details |
-| **infranest/core/analyzers/README.md** | Intelligent analyzer documentation |
+| **infranest/copilot/copilot.py** | Copilot CLI source (no separate README exists for it - the CLI's own `--help` is the current reference) |
 
 ### Code Examples
 
@@ -1169,8 +1213,8 @@ We welcome contributions! Please see our contribution guidelines:
 1. Fork the repository
 2. Clone your fork:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/PRISM-Insfranest.git
-   cd PRISM-Insfranest
+   git clone https://github.com/YOUR_USERNAME/prism-infranest.git
+   cd prism-infranest
    ```
 3. Create a feature branch:
    ```bash
@@ -1191,12 +1235,15 @@ We welcome contributions! Please see our contribution guidelines:
 
 ### Testing Requirements
 
-- All new features must include tests
-- Maintain >80% test coverage
-- Run full test suite before submitting PR:
+- There's no automated test suite yet (see [Testing](#-testing) above) -
+  new features currently can't be gated on one. Adding real pytest
+  coverage under `infranest/core/tests/` would be a good first
+  contribution.
+- Until then, run the manual integration checks with the backend running
+  locally before submitting a PR:
   ```bash
-  cd infranest
-  python test_end_to_end.py
+  python test_frontend_integration.py
+  python infranest/core/test_api_debug.py
   ```
 
 ---
@@ -1259,7 +1306,16 @@ If the Mistral 7B model is not loaded or fails, the system automatically falls b
 
 ### 🎯 InfraNest Copilot CLI
 
-InfraNest includes a powerful command-line interface for advanced users and automation:
+InfraNest includes a command-line interface for advanced users and automation.
+`describe_backend`, `preview_code`, and `generate_code` call the real core
+API. **`deploy_project`, `view_logs`, `run_audit`, and `simulate_api` are
+client-side simulations** (see `_generate_mock_dsl`, the "Mock deployment
+process" / "Mock logs" / "Mock audit results" / "Mock API response" comments
+in [`infranest/copilot/copilot.py`](./infranest/copilot/copilot.py)) - no
+cloud provider is contacted, no logs are aggregated, and the "audit" scores
+are fixed values, not a real analysis of your DSL. They exist so the CLI's
+UX can be tried end to end before that infrastructure is built, the same
+way `Backend-Builder`'s equivalent commands are (and are labeled there too).
 
 #### Installation
 
@@ -1287,29 +1343,29 @@ Preview generated code structure:
 python copilot.py preview_code blog.yml --framework django
 ```
 
-##### 3. Deploy Project
-Deploy to cloud provider:
+##### 3. Deploy Project (simulated - see note above)
+Prints a fake progress bar and returns a made-up URL; nothing is deployed:
 
 ```bash
 python copilot.py deploy_project blog.yml --provider railway
 ```
 
-##### 4. View Logs
-View deployment logs:
+##### 4. View Logs (simulated)
+Returns a hardcoded sample log, not real logs from anything you ran:
 
 ```bash
 python copilot.py view_logs blog-api --lines 50
 ```
 
-##### 5. Run Audit
-Run security and performance audit:
+##### 5. Run Audit (simulated)
+Returns fixed security/performance scores, not an analysis of your DSL:
 
 ```bash
 python copilot.py run_audit blog.yml
 ```
 
-##### 6. Simulate API
-Simulate API endpoint responses:
+##### 6. Simulate API (simulated, as the name says)
+Returns a canned response shape, not output from your generated code:
 
 ```bash
 python copilot.py simulate_api blog.yml /api/v1/posts/ --method GET
@@ -1582,13 +1638,14 @@ If issues persist:
 
 2. **Verify Setup**:
    ```bash
-   # Run diagnostics
-   cd infranest
-   python test_end_to_end.py
+   # Manual integration checks (see "Testing" above - these require the
+   # backend already running)
+   python test_frontend_integration.py
+   python infranest/core/test_api_debug.py
    ```
 
 3. **Report Issues**:
-   - Open issue at: https://github.com/bharat3645/PRISM-Insfranest/issues
+   - Open issue at: https://github.com/bharat3645/prism-infranest/issues
    - Include: OS, Python version, Node version, error logs, steps to reproduce
 
 ---
@@ -1603,7 +1660,7 @@ This project is licensed under the **MIT License** — see [LICENSE](./LICENSE) 
 
 - **Groq** for providing fast Mixtral inference via LPU hardware
 - **Google** for Gemini 1.5 Pro API access
-- **Meta AI** for LLaMA-2 and Code LLaMA models
+- **Meta AI** for LLaMA-2
 - **Mistral AI** for Mistral-7B and research contributions
 - **React** and **Flask** communities for excellent frameworks
 - **Research Community** for LLM benchmarking methodologies
@@ -1612,7 +1669,7 @@ This project is licensed under the **MIT License** — see [LICENSE](./LICENSE) 
 
 ## 📞 Contact & Support
 
-- **GitHub Issues**: [Report bugs or request features](https://github.com/bharat3645/PRISM-Insfranest/issues)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/bharat3645/prism-infranest/issues)
 - **Documentation**: Check `infranest/docs/` for detailed guides
 - **Email**: bharat3645@gmail.com
 - **Research Papers**: See `infranest/evaluation_data/` for datasets
@@ -1652,9 +1709,9 @@ This project is licensed under the **MIT License** — see [LICENSE](./LICENSE) 
 </p>
 
 <p align="center">
-  <sub>Version 2.1.0 | Last Updated: November 11, 2025</sub>
+  <sub>Version 0.1.0 (package.json) | README last revised: 2026</sub>
 </p>
 
 <p align="center">
-  ⭐ Star us on <a href="https://github.com/bharat3645/PRISM-Insfranest">GitHub</a> if you find this useful!
+  ⭐ Star us on <a href="https://github.com/bharat3645/prism-infranest">GitHub</a> if you find this useful!
 </p>

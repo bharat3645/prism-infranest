@@ -123,7 +123,10 @@ STEP 8: TESTING & FEEDBACK LOOP
 │  └──────────────────┘  └──────────────────┘               │
 │  → Static Analysis: SonarQube integration (PLANNED)         │
 │  → PRISM Refiner: Automated feedback loop (MISSING)         │
-│  → Files: test_end_to_end.py, test_results.json            │
+│  → pytest suite / test_end_to_end.py: NOT PRESENT IN REPO   │
+│  → Manual scripts: test_frontend_integration.py,            │
+│    infranest/core/test_api_debug.py (require a running      │
+│    backend; not automated, not run in CI)                   │
 └─────────────────────────┬───────────────────────────────────┘
                           ↓
 STEP 9: EVALUATION & BENCHMARKING
@@ -175,7 +178,9 @@ STEP 9: EVALUATION & BENCHMARKING
 ### 4. Observability
 - **Logging**: Comprehensive logging throughout pipeline
 - **Metrics**: Performance tracking (generation time, token usage)
-- **Testing**: End-to-end test suite (`test_end_to_end.py`)
+- **Testing**: no automated suite yet - manual integration scripts only
+  (`test_frontend_integration.py`, `infranest/core/test_api_debug.py`);
+  see the main README's "Testing" section
 - **Monitoring**: Prometheus/Grafana setup (`monitoring/`)
 
 ## Data Flow

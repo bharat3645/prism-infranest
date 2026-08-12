@@ -1,5 +1,18 @@
 # LLM Benchmarking & Selection Documentation
 
+> **Correction:** the comparison numbers in this document (e.g. "2,664
+> generations", Mixtral at 9.2/10 quality and 95% success, and the "Code
+> LLaMA" rows) do not match the real data checked into
+> [`infranest/evaluation_data/`](../evaluation_data) - Code LLaMA was never
+> actually run, and the real dataset has 121 generation records, not
+> thousands. The corrected numbers, computed directly from that data, are
+> in the main [README.md](../../README.md#-benchmarking-results)
+> "Benchmarking Results" and "LLM Selection & Hyperparameters" sections.
+> The qualitative ranking below (Mixtral first on quality, Mistral-7B
+> cheapest) still roughly holds, but treat every specific figure in this
+> file as unverified until it's cross-checked against
+> `evaluation_data/generation_metrics.json` directly.
+
 ## Executive Summary
 
 This document details the LLM selection process for PRISM, including benchmarking methodology, performance comparisons, and the rationale behind choosing **Mixtral-8x7b-32768** as the primary model.
