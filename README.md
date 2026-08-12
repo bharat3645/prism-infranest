@@ -37,6 +37,19 @@
 > been corrected here. Read this as a small internal pilot dataset, not a
 > published large-N benchmark.
 
+> **Relationship to [Backend Builder](https://github.com/bharat3645/Backend-Builder):**
+> both repos generate backend code from a DSL/natural-language prompt, but
+> they're separate, independently-evolved codebases, not the same repo
+> published twice. This repo (InfraNest / PRISM) is the larger, older,
+> research-oriented platform: multi-LLM follow-up-question generation, an
+> evaluation/benchmarking subsystem (see above), and an experimental local
+> "intelligent analyzer," on top of a similar Django/Go/Rails generation
+> core. Backend Builder is a newer, smaller, test-covered rewrite of just
+> the core generation engine (3 generators, a deterministic parser with
+> optional OpenAI/Claude, a CLI, no accounts, 74 passing pytest tests in
+> CI). Pick this repo for the larger feature surface; pick Backend Builder
+> for a small, honestly-scoped generator you can read end to end.
+
 ---
 
 ## 📖 Table of Contents
