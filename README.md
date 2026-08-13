@@ -1087,13 +1087,21 @@ VITE_ENABLE_EXPERIMENTAL_FEATURES=false
 
 ## 🧪 Testing
 
-**There is no automated/CI test suite in this repo yet.** There's no
+**There is no automated test suite in this repo yet.** There's no
 `infranest/core/tests/` directory and no pytest config. CI
-([`infranest/.github/workflows/code-quality.yml`](./infranest/.github/workflows/code-quality.yml))
+([`.github/workflows/code-quality.yml`](./.github/workflows/code-quality.yml))
 runs lint/type-check/Bandit/Trivy/SonarQube and a pytest step that's
-skipped when no `tests/` dir is found - and every step in that workflow is
-`continue-on-error: true`, so none of it can currently fail the build
-either way.
+skipped when no `tests/` dir is found. It previously lived at
+`infranest/.github/workflows/code-quality.yml`, a path GitHub Actions never
+scans (only the repo-root `.github/workflows/` is discovered), so despite
+being described here it had never actually triggered on a single push. It
+now lives at the correct root path, has been verified to trigger and run
+to completion on push, and all five of its jobs (Python lint/type-check,
+TypeScript lint/type-check, security scan, SonarQube, summary) pass.
+Most quality-check steps within it (Black, Pylint, MyPy, ESLint, tests,
+SonarQube) are `continue-on-error: true` by design, so lint/type findings
+are surfaced as annotations rather than failing the build - only a hard
+tooling error (missing dependency, bad path, etc.) would fail a job now.
 An earlier version of this README instructed running `python
 test_end_to_end.py` with a "10/10 tests passing" sample output; that file
 does not exist anywhere in this repo and never has (`git log --all` has no
