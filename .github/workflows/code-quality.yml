@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r infranest/core/requirements-minimal.txt
+          pip install -r infranest/core/requirements.txt
           pip install pylint black autopep8 mypy pytest pytest-cov coverage
       
       - name: Run Black (Code Formatting Check)
@@ -92,13 +92,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: infranest/package-lock.json
-      
+
       - name: Install dependencies
         run: |
           cd infranest
-          npm ci
+          npm install
       
       - name: Run ESLint
         run: |
